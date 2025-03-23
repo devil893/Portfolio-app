@@ -1,13 +1,558 @@
-body {
+/* Global styles */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  color: #1f2937;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Fix text visibility in dark mode */
+body.dark {
+  color: var(--foreground);
+}
+
+/* Ensure the entire screen transitions to dark mode */
+body.dark {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: #4f46e5;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #4338ca;
+}
+
+a.dark {
+  color: var(--primary);
+}
+
+a.dark:hover {
+  color: var(--primary-hover);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+@keyframes slideUp {
+from { transform: translateY(20px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+from { transform: translateY(-20px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleUp {
+from { transform: scale(0.8); opacity: 0; }
+to { transform: scale(1); opacity: 1; }
+}
+
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --secondary: #6b7280;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+
+  --background: #ffffff;
+  --foreground: #1f2937;
+  --card: #ffffff;
+  --card-foreground: #1f2937;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  --radius-sm: 0.125rem;
+  --radius: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+}
+
+.dark {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --background: #111827;
+  --foreground: #f9fafb;
+  --card: #1f2937;
+  --card-foreground: #f9fafb;
+  --border: #374151;
+  --input: #374151;
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper {
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+button,
+.btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+button:disabled,
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Utility classes */
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow {
+  box-shadow: var(--shadow);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.transition {
+  transition: all 0.3s ease;
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Data Entry Page */
+.data-entry-page {
+  padding-top: 2rem;
+}
+
+.data-entry-page svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.data-entry-page button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.data-entry-page .section-toggle svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .sm-hidden {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .md-hidden {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .lg-hidden {
+    display: none;
+  }
+}
+
+/* Form Field Spacing */
+input,
+textarea,
+select {
+  margin-bottom: 1rem; /* Add spacing between fields */
+}
+
+/* Button Styles */
+button,
+.btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+button:hover,
+.btn:hover {
+  transform: scale(1.05);
+  background-color: var(--primary-hover);
+  color: white;
+}
+
+button:disabled,
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Buttons in dark mode */
+button.dark,
+.btn.dark {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+button.dark:hover,
+.btn.dark:hover {
+  background-color: var(--primary-hover);
+  color: white;
+}
+
+/* Navbar Styling */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--background);
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+nav.scrolled {
+  background-color: var(--background);
+  box-shadow: var(--shadow-md);
+}
+
+/* Navbar in dark mode */
+nav.dark {
+  background-color: var(--background);
+  color: var(--foreground);
+  box-shadow: var(--shadow-md);
+}
+
+nav.dark a {
+  color: var(--foreground);
+}
+
+nav.dark a:hover {
+  color: var(--primary-hover);
+}
+
+/* Toggle Button */
+.toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--muted);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--foreground);
+}
+
+.toggle-button:hover {
+  background-color: var(--primary);
+  transform: scale(1.1);
+}
+
+.toggle-button:hover svg {
+  color: white;
+}
+
+/* Toggle button in dark mode */
+.toggle-button.dark {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.toggle-button.dark:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.toggle-button.dark svg {
+  color: var(--foreground);
+}
+
+.toggle-button.dark:hover svg {
+  color: white;
+}
+
+/* Dropdown Menu with Icons */
+.navbar .dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--card);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.navbar .dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  transition: background-color 0.3s ease;
+}
+
+.navbar .dropdown-menu a:hover {
+  background-color: var(--primary-hover);
+  color: white;
+}
+
+.navbar .dropdown-menu a svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--foreground);
+}
+
+.navbar .dropdown-menu a:hover svg {
+  color: white;
+}
+
+/* Dropdown menu in dark mode */
+.navbar .dropdown-menu.dark {
+  background-color: var(--card);
+  color: var(--card-foreground);
+}
+
+.navbar .dropdown-menu.dark a {
+  color: var(--foreground);
+}
+
+.navbar .dropdown-menu.dark a:hover {
+  background-color: var(--primary-hover);
+  color: white;
+}
+
+.navbar .dropdown-menu.dark a svg {
+  color: var(--foreground);
+}
+
+.navbar .dropdown-menu.dark a:hover svg {
+  color: white;
+}
+
+/* Data Entry Page Styling */
+.data-entry-container {
+  background-color: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.data-entry-container h1 {
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.data-entry-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.data-entry-container button {
+  align-self: flex-end;
+}
+
+/* Cards in dark mode */
+.card.dark {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Input fields in dark mode */
+input.dark,
+textarea.dark,
+select.dark {
+  background-color: var(--input);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+input.dark:focus,
+textarea.dark:focus,
+select.dark:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Add spacing between sections */
+.section {
+  margin-bottom: 2rem;
+}
+
+/* Hero Section Buttons */
+.hero-buttons .btn-get-in-touch,
+.hero-buttons .btn-view-portfolio {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  transition: all 0.3s ease;
+}
+
+.hero-buttons .btn-get-in-touch:hover,
+.hero-buttons .btn-view-portfolio:hover {
+  transform: translateY(-3px);
+}
+
+/* Dropdown and Toggle Button Text */
+.toggle-button span {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.navbar .dropdown-menu a span {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.toggle-button:hover span,
+.navbar .dropdown-menu a:hover span {
+  color: var(--primary-hover);
+}
+
